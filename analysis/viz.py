@@ -148,7 +148,15 @@ def pie_chart(df):
         title="Subjects",
         color_discrete_sequence=px.colors.qualitative.Bold
     )
-
+    
+    fig.update_layout(
+    title={
+        'text': "Subjects",
+        'y':0.9,
+        'x':0.5,
+        'xanchor':'center',
+        'yanchor':'top'})
+        
     return fig.update_traces(
         hoverinfo="label+percent",
         textinfo="value",
@@ -263,6 +271,7 @@ st.write(unigram_data.drop(columns=["text", "colors"]))
 #Add a horizontal bar
 st.markdown("""<hr/>""", unsafe_allow_html=True)
 
+
 #Add sub heading on the sidebar
 st.sidebar.subheader('Select a Category of Experience')
 option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
@@ -350,6 +359,25 @@ plot_container_experience = st.container()
 col1, col2 = plot_container_experience.columns([7, 1])
 col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
 col2.plotly_chart(pie_chart(filtered_df_experience))
+
+with st.expander("Placing charts side-by-side"):
+    container_code='''
+#Utilising Streamlit container function to make a grid and place Bar and Pie Chart side-by-side
+plot_container_experience = st.container()
+
+#In the container the area is divided into two columns, the ratio for which is 7:1
+col1, col2 = plot_container_experience.columns([7, 1])
+
+#Bar Plot in Column 1
+col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
+
+#Pie Chart in Column 2
+col2.plotly_chart(pie_chart(filtered_df_experience))
+
+    '''
+    
+    st.code(container_code,language = 'python')
+
 with st.expander("Bar Chart for Category of Experience"):
 
     st.markdown("Function call to bar_chart function with the filtered dataframe", unsafe_allow_html=True)
@@ -359,7 +387,7 @@ col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occ
     '''
     st.code(experience_bar_code, language = 'python')
     
-    st.markdown("Below code explains the bar_chart function. Function definition should come before call to the function, however only for understanding purpose it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
+    st.markdown("Below code explains the bar_chart(). Function definition should come before call to the function, however only for understanding purpose it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
     
     bar_chart_code='''
 def bar_chart(df, title="", x_axis_title=""):
@@ -446,10 +474,42 @@ col4.plotly_chart(pie_chart(filtered_df_subject))
 
 
 with st.expander("Pie Chart for Subject"):
+
+    st.markdown("Function call for pie_chart() for rendering Pie Chart on the filtered dataframe. Refer expandible section **Placing charts side-by-side** for placing bar and pie charts horizontally, as above",unsafe_allow_html=True)
     pie_code='''
 col4.plotly_chart(pie_chart(filtered_df_subject))
     '''
     st.code(pie_code, language = 'python')
+    
+    st.markdown("Below code explains the function pie_chart(). Function definition should come before function call, refer **github script** for more",unsafe_allow_html=True)
+    pie_subject_code='''
+def pie_chart(df):
+    fig = px.pie(
+        df, 
+        names=df.index, 
+        values=df["Count"], 
+        title="Subjects",
+        color_discrete_sequence=px.colors.qualitative.Bold
+    )
+    
+    fig.update_layout(
+    title={
+        'text': "Subjects",
+        'y':0.9,
+        'x':0.5,
+        'xanchor':'center',
+        'yanchor':'top'})
+        
+    return fig.update_traces(
+        hoverinfo="label+percent",
+        textinfo="value",
+        insidetextfont=dict(
+            color="white"
+        ),
+    )
+    
+    '''
+    st.code(pie_subject_code, language = 'python')
 
     
 
@@ -458,7 +518,63 @@ st.markdown("""<hr/>""", unsafe_allow_html=True)
 
 st.sidebar.subheader('Bubble map')
 st.subheader('Bubble map')
+st.markdown("Choose the appropiate filter on the sidebar under the heading **Bubble map**", unsafe_allow_html=True)
+
+#Filter option for Bubble map
 include_admin_scatter = st.sidebar.checkbox('Remove Top Admin Categories', key="include_admin_scatter")
 num_range = st.sidebar.slider('Filter threshold', min_value=1, max_value=600, value=20)
 
 st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range))
+
+with st.expander("Generating Bubble Map"):
+
+
+    st.markdown("Function call to scatter_plot() for rendering the Bubble map above",unsafe_allow_html=True)
+    
+    bubble_call='''
+st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range))
+    '''
+    st.code(bubble_call, language='python')
+    
+    st.markdown("Below code block explains the scatter_plot() on the filtered dataframe",unsafe_allow_html=True)
+    bubble_map_code='''
+def scatter_plot(df, include_top_cat=True, min_value=50):
+    if include_top_cat:
+        df = df.loc[df["Experience"] != 'Land Revenue Mgmt & District Admn']
+        df = df.loc[df["Experience"] != 'Personnel and General Administration']
+        df = df.loc[df["Experience"] != 'Finance']
+
+    df = df.loc[df["Count"] > min_value]
+    max_value = df["Count"].max()
+
+    length_y_axis = df["Subject"].unique().shape[0]
+    length_x_axis = df["Experience"].unique().shape[0]
+
+    fig = go.Figure(data=[go.Scatter(
+        x=df["Experience"].to_list(),
+        y=df["Subject"].to_list(),
+        text=df["text"].to_list(),
+        mode="markers",
+        marker=dict(
+            size=df["Count"].apply(lambda x: x*50/max_value).to_list(),
+            color = df["colors"].to_list(),
+        )
+    )])
+
+    fig = fig.update_layout(
+        autosize=False,
+        height=100 + (length_y_axis * 75),
+        width=100 + (length_x_axis * 75),
+    )
+
+    # remove grid lines from the figure
+    fig.update_xaxes(
+        showgrid=False,
+        type="category",
+    )
+    fig.update_yaxes(showgrid=False)
+    
+    return fig
+    '''
+    st.code(bubble_map_code, language = 'python')
+
