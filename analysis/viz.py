@@ -6,10 +6,17 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 
-st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
+st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="centered")
 
-'''This application aims to provide an interactive tool to visualise and study Subjects studied and Department Alloted to an IAS. The data is extracted from TCPD-IAS Dataset.
-A good starting point to understand who it is build would be to refer to the linked TCPD column here--provide the link''' 
+st.header('IAS Subject and Experience Analysis Tool')
+
+body1="This application aims to provide an interactive tool to visualise and study variables <u>Subject</u> and <u>Department</u>. The data is extracted from **TCPD-IAS Dataset**. A good starting point to understand how it is build would be to refer to the linked **TCPD column here--provide the link**"
+st.markdown(body1, unsafe_allow_html=True)
+
+
+body2="Expandable sections contains code blocks for replicating this application"
+st.markdown(body2, unsafe_allow_html=False)
+
 
 #This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 
@@ -29,8 +36,8 @@ def color_map(item):
 @st.cache
 #Function to load the unigram mapping data from csv and filter
 def load_unigram_data():
-    #df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
-    df = pd.read_csv('./analysis/processed/unigram maps.csv')
+    df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
+    #df = pd.read_csv('./analysis/processed/unigram maps.csv')
     #Dropping rows where the experience is NA
     df = df.loc[df["Experience"] != "N.A."]
     
@@ -47,8 +54,8 @@ def load_unigram_data():
 
 @st.cache
 def load_lists_data():
-    #return pd.read_csv('~/Downloads/ias-officers/analysis/processed/IAS subjects map.csv')
-    return pd.read_csv('./analysis/processed/IAS subjects map.csv')
+    return pd.read_csv('~/Downloads/ias-officers/analysis/processed/IAS subjects map.csv')
+    #return pd.read_csv('./analysis/processed/IAS subjects map.csv')
     
     
 #Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience
@@ -191,15 +198,11 @@ import plotly.graph_objects as go
 import plotly.express as px
 ''' 
     st.code(body, language = 'python')
-
-st.subheader('Unigram maps')
-
-st.write(unigram_data.drop(columns=["text", "colors"]))
-
-
-with st.expander("Code Block for Unigram maps table rendered above"):
+    
+    
+with st.expander('Page configuration'):
     body='''#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
-    st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
+st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
 
 #This dict will be used to map different colour for each subject from the 8 broad categories 
 colors = {}
@@ -207,11 +210,20 @@ colors = {}
 #Initial value
 lower = 100
 
-
 #Function to iterate over the list of 8 broad subject category and provide color value
 def color_map(item):
     return colors[item]
+    '''
+    st.code(body, language = 'python')
+    
 
+st.subheader('Unigram maps')
+
+st.write(unigram_data.drop(columns=["text", "colors"]))
+
+
+with st.expander("Code Block for Unigram maps table rendered above"):
+    body='''
 #This function optimize performance by re-running the followed function if any change relevant to it happens. 
 @st.cache
 #Function to load the unigram mapping data from csv and filter
@@ -230,17 +242,18 @@ def load_unigram_data():
     #Populating the color code as defined above, available in the 'colors' dictionary to the whole dataset
     df["colors"] = df["Subject"].map(color_map)
     return df
+#the library function that renders the dataframe, text and colors are temporary variable added to dataframe for providing color gradient to the bubbles in the bubble chart
 st.write(unigram_data.drop(columns=["text", "colors"]))
     '''
     st.code(body, language = 'python')
-
-    
+  
+   
 st.markdown("""<hr/>""", unsafe_allow_html=True)
     
     
  
 
-st.sidebar.subheader('Select a category of expirence')
+st.sidebar.subheader('Select a category of experience')
 st.subheader('Number of Subject occurances with respect to chosen Category of Experience')
 st.write("\n")
 option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
