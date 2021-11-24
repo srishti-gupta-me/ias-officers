@@ -13,10 +13,10 @@ st.header('IAS Subject and Experience Analysis Tool')
 
 
 
-body1="This application aims to provide an interactive tool to visualise variables <u>Subject</u> and <u>Department</u>. The data is extracted from **TCPD-IAS Dataset**. A good starting point to understand how it is build would be to refer to the linked **TCPD column here--provide the link**. This application uses [Streamlit.io](https://streamlit.io/) and Plotly. Streamlit is a powerful tool for its ability to quickly make visualisations with its own library of functions, compounded by makes hosting applications online easy."
+body1="This application aims to provide an interactive tool to visualise variables <u>Subject</u> and <u>Department</u> from the TCPD-IAS Dataset. A good starting point to understand how it is build would be to refer to the linked **TCPD column here--provide the link**. This application utilizes [Streamlit.io](https://streamlit.io/) and [Plotly](https://plotly.com/). Streamlit.io provides a powerful Streamlit library, which has functions that can make visualisations and add features quickly with minimal code. Moreover, Streamlit.io provides a cloud solution to host the visualisations dashboard online and sharing easy. In this application Streamlit library functions and Plotly functions are used to render charts and tables. The dashboard is then hosted using Streamlit cloud utility with data source at Github."
 st.markdown(body1, unsafe_allow_html=True)
 
-body2="Expandable sections contains code blocks for replicating the application.Like the one just below, hence it can be ignored if not interested code development"
+body2="Expandable sections contains code blocks for replicating the application(like the one just below). Hence it can be ignored if not interested in code development."
 st.markdown(body2, unsafe_allow_html=False)
 
 
@@ -204,7 +204,11 @@ def bar_chart(df, title="", x_axis_title=""):
 unigram_data = load_unigram_data()
 
 
-with st.expander("Dependencies needed"):
+with st.expander("Getting Started and Dependencies"):
+
+    st.markdown("Firslty, Streamlit library will have to be installed, steps to install are available [here](https://docs.streamlit.io/library/get-started/installation). This step is required even if you want to build the application locally/server on your machine")
+    st.write("\n")
+    st.markdown("To host the application online from Github (database at Github) an application dependencies file such as Pipfile, environment.yml, requirements.txt or pyproject.toml will be required by Streamlit Cloud to download the right packages during hosting application online. More about it [here](https://docs.streamlit.io/streamlit-cloud/get-started/deploy-an-app/app-dependencies), also refer Pipfile at the **Github repo** ")
     body='''import streamlit as st
 import pandas as pd
 import numpy as np
@@ -220,15 +224,7 @@ with st.expander('Page configuration'):
     body='''#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="centered")
 
-#This dict will be used to map different colour for each subject from the 8 broad categories 
-colors = {}
 
-#Initial value
-lower = 100
-
-#Function to iterate over the list of 8 broad subject category and provide color value
-def color_map(item):
-    return colors[item]
     '''
     st.code(body, language = 'python')
     
@@ -241,6 +237,17 @@ st.markdown(body_unigram_maps, unsafe_allow_html=True)
 st.write(unigram_data.drop(columns=["text", "colors"]))
 with st.expander("Code Block for Unigram maps table rendered above"):
     body='''
+#This dict will be used to map different colour for each subject from the 8 broad categories 
+colors = {}
+
+#Initial value
+lower = 100
+
+#Function to iterate over the list of 8 broad subject category and provide color value
+def color_map(item):
+    return colors[item]
+    
+    
 #This function optimize performance by re-running the followed function if any change relevant to it happens. 
 @st.cache
 #Function to load the unigram mapping data from csv and filter
@@ -289,7 +296,7 @@ filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', opti
 st.write(filtered_df_experience)
 
 
-with st.expander("Dataframe Filtering for Category of Experience"):
+with st.expander("Sidebar filter and Dataframe Filtering for 'Category of Experience'"):
 
     st.markdown("Below code explains how the filters on the sidebar are placed. Values selected in the filter are then used to subset the dataframe in the table above", unsafe_allow_html=True)
     experience_filter='''
@@ -299,7 +306,7 @@ st.sidebar.subheader('Select a category of experience')
 #Options to filter data
 option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
 include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
-number_of_rows_experience = st.sidebar.slider('Number of rows', min_value=1, max_value=8, value=5)
+number_of_rows_experience = st.sidebar.slider('Number of row	s', min_value=1, max_value=8, value=5)
 
 #Filtering dataframe based on the filters selected on the sidebar
 filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience)
@@ -442,7 +449,7 @@ st.markdown("Choose the appropiate filter on the sidebar at left under the **Sel
 st.write("\n")
 filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, percentage=percentage)
 st.write(filtered_df_subject)
-with st.expander("Dataframe Filtering for Subject"):
+with st.expander("Sidebar Filter and Dataframe Filtering for Subject"):
 
     st.markdown("Below code explains how the filters on the sidebar are placed. Values selected in the filter are then used to subset the dataframe in the table above", unsafe_allow_html=True)
     subject_filter='''
@@ -475,7 +482,7 @@ col4.plotly_chart(pie_chart(filtered_df_subject))
 
 with st.expander("Pie Chart for Subject"):
 
-    st.markdown("Function call for pie_chart() for rendering Pie Chart on the filtered dataframe. Refer expandible section **Placing charts side-by-side** for placing bar and pie charts horizontally, as above",unsafe_allow_html=True)
+    st.markdown("Function call for pie_chart() for rendering Pie Chart on the filtered dataframe. Refer expandible section **Placing charts side-by-side** for placing bar and pie charts horizontally, as above. Similarly, a new container is declared and 2 columns made in the container named as Col3 and Col4.",unsafe_allow_html=True)
     pie_code='''
 col4.plotly_chart(pie_chart(filtered_df_subject))
     '''
@@ -526,7 +533,7 @@ num_range = st.sidebar.slider('Filter threshold', min_value=1, max_value=600, va
 
 st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range))
 
-with st.expander("Generating Bubble Map"):
+with st.expander("Sidebar Filter and Bubble Map"):
 
 
     st.markdown("Function call to scatter_plot() for rendering the Bubble map above",unsafe_allow_html=True)
