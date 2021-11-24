@@ -6,31 +6,45 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 
+#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
 
+#This dict will be used to map different colour for each subject from the 8 broad categories 
 colors = {}
 
+#Initial value
 lower = 100
 
+
+#Function to iterate over the list of 8 broad subject category and provide color value
 def color_map(item):
     return colors[item]
 
+#This function optimize performance by re-running the followed function if any change relevant to it happens. 
 @st.cache
+#Function to load the unigram mapping data from csv and filter
 def load_unigram_data():
-    df = pd.read_csv('./processed/unigram maps.csv')
+    df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
+    #Dropping rows where the experience is NA
     df = df.loc[df["Experience"] != "N.A."]
-
+    
+    #Adding a new column that contains the count value as string, for example 'size:count' 
     df["text"] = df["Count"].apply(lambda x: "size: "+str(x))
-
+    
+    #Providing each subject out of the 8 broad caategories a unique color code
     for i, item in enumerate(df["Subject"].unique()):
         colors[item] = lower + i
     
+    #Populating the color code as defined above, available in the 'colors' dictionary to the whole dataset
     df["colors"] = df["Subject"].map(color_map)
     return df
 
 @st.cache
 def load_lists_data():
-    return pd.read_csv('./processed/IAS subjects map.csv')
+    return pd.read_csv('~/Downloads/ias-officers/analysis/processed/IAS subjects map.csv')
+    
+    
+#Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience
 
 admin_categories = [
     "Land Revenue Mgmt & District Admn",
@@ -159,10 +173,65 @@ def bar_chart(df, title="", x_axis_title=""):
 unigram_data = load_unigram_data()
 lists_data = load_lists_data()
 
+
+with st.expander("Dependencies needed"):
+    body='''import streamlit as st
+import pandas as pd
+import numpy as np
+from plotly.tools import FigureFactory as ff
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import plotly.express as px
+''' 
+    st.code(body, language = 'python')
+
 st.subheader('Unigram maps')
 
-with st.expander("See table"):
-    st.write(unigram_data.drop(columns=["text", "colors"]))
+st.write(unigram_data.drop(columns=["text", "colors"]))
+
+
+with st.expander("Code Block for Unigram maps table rendered above"):
+    body='''#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
+st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
+
+#This dict will be used to map different colour for each subject from the 8 broad categories 
+colors = {}
+
+#Initial value
+lower = 100
+
+
+#Function to iterate over the list of 8 broad subject category and provide color value
+def color_map(item):
+    return colors[item]
+
+#This function optimize performance by re-running the followed function if any change relevant to it happens. 
+@st.cache
+#Function to load the unigram mapping data from csv and filter
+def load_unigram_data():
+    df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
+    #Dropping rows where the experience is NA
+    df = df.loc[df["Experience"] != "N.A."]
+    
+    #Adding a new column that contains the count value as string, for example 'size:count' 
+    df["text"] = df["Count"].apply(lambda x: "size: "+str(x))
+    
+    #Providing each subject out of the 8 broad caategories a unique color code
+    for i, item in enumerate(df["Subject"].unique()):
+        colors[item] = lower + i
+    
+    #Populating the color code as defined above, available in the 'colors' dictionary to the whole dataset
+    df["colors"] = df["Subject"].map(color_map)
+    return df
+st.write(unigram_data.drop(columns=["text", "colors"]))
+    '''
+    st.code(body, language = 'python')
+    '''text and colors were temporary variable made to add asthestic feature to the charts'''
+    
+st.markdown("""<hr/>""", unsafe_allow_html=True)
+    
+    
+ 
 
 st.sidebar.subheader('Select a category of expirence')
 st.subheader('Number of Subject occurances with respect to chosen Category of Experience')
@@ -174,8 +243,7 @@ number_of_rows_experience = st.sidebar.slider('Number of rows', min_value=1, max
 
 filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience)
 
-with st.expander("See table"):
-    st.write(filtered_df_experience)
+st.write(filtered_df_experience)
 
 plot_container_experience = st.container()
 col1, col2 = plot_container_experience.columns([7, 1])
@@ -203,8 +271,7 @@ number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, 
 
 filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, percentage=percentage)
 
-with st.expander("See table"):
-    st.write(filtered_df_subject)
+st.write(filtered_df_subject)
 
 plot_container_subject = st.container()
 col3, col4 = plot_container_subject.columns([7, 1])
