@@ -17,7 +17,7 @@ def color_map(item):
 
 @st.cache
 def load_unigram_data():
-    df = pd.read_csv('./processed/unigram maps.csv')
+    df = pd.read_csv('./analysis/processed/unigram maps.csv')
     df = df.loc[df["Experience"] != "N.A."]
 
     df["text"] = df["Count"].apply(lambda x: "size: "+str(x))
@@ -30,7 +30,7 @@ def load_unigram_data():
 
 @st.cache
 def load_lists_data():
-    return pd.read_csv('./processed/IAS subjects map.csv')
+    return pd.read_csv('./analysis/processed/IAS subjects map.csv')
 
 admin_categories = [
     "Land Revenue Mgmt & District Admn",
