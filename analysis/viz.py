@@ -6,11 +6,13 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 
+st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
+
 '''This application aims to provide an interactive tool to visualise and study Subjects studied and Department Alloted to an IAS. The data is extracted from TCPD-IAS Dataset.
 A good starting point to understand who it is build would be to refer to the linked TCPD column here--provide the link''' 
 
 #This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
-st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
+
 
 #This dict will be used to map different colour for each subject from the 8 broad categories 
 colors = {}
@@ -197,7 +199,7 @@ st.write(unigram_data.drop(columns=["text", "colors"]))
 
 with st.expander("Code Block for Unigram maps table rendered above"):
     body='''#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
-st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
+    st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
 
 #This dict will be used to map different colour for each subject from the 8 broad categories 
 colors = {}
