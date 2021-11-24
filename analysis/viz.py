@@ -7,18 +7,17 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="centered")
+#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 
 st.header('IAS Subject and Experience Analysis Tool')
 
-body1="This application aims to provide an interactive tool to visualise and study variables <u>Subject</u> and <u>Department</u>. The data is extracted from **TCPD-IAS Dataset**. A good starting point to understand how it is build would be to refer to the linked **TCPD column here--provide the link**"
+
+
+body1="This application aims to provide an interactive tool to visualise variables <u>Subject</u> and <u>Department</u>. The data is extracted from **TCPD-IAS Dataset**. A good starting point to understand how it is build would be to refer to the linked **TCPD column here--provide the link**. This application uses [Streamlit.io](https://streamlit.io/) and Plotly. Streamlit is a powerful tool for its ability to quickly make visualisations with its own library of functions, compounded by makes hosting applications online easy."
 st.markdown(body1, unsafe_allow_html=True)
 
-
-body2="Expandable sections contains code blocks for replicating this application"
+body2="Expandable sections contains code blocks for replicating the application.Like the one just below, hence it can be ignored if not interested code development"
 st.markdown(body2, unsafe_allow_html=False)
-
-
-#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 
 
 #This dict will be used to map different colour for each subject from the 8 broad categories 
@@ -51,20 +50,18 @@ def load_unigram_data():
     #Populating the color code as defined above, available in the 'colors' dictionary to the whole dataset
     df["colors"] = df["Subject"].map(color_map)
     return df
+   
 
-@st.cache
-def load_lists_data():
-    #return pd.read_csv('~/Downloads/ias-officers/analysis/processed/IAS subjects map.csv')
-    return pd.read_csv('./analysis/processed/IAS subjects map.csv')
-    
-    
-#Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience
 
+#Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience	
 admin_categories = [
     "Land Revenue Mgmt & District Admn",
     "Personnel and General Administration",
     "Finance"
 ]
+
+
+
 
 def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percentage=False, include_other=False):
 
@@ -81,8 +78,8 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
     
     if include_other:
         df = df.append({
-            df.columns[0]: "Other",
-            df.columns[1]: "Other",
+            df.columns[0]: "Remaining",
+            df.columns[1]: "Remaining",
             "Count": value_sum
         }, ignore_index=True)
 
@@ -97,6 +94,10 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
         return df.drop(columns=["text", "colors"])
     except:
         return df
+
+
+
+
 
 def scatter_plot(df, include_top_cat=True, min_value=50):
     if include_top_cat:
@@ -136,6 +137,9 @@ def scatter_plot(df, include_top_cat=True, min_value=50):
     
     return fig
 
+
+
+
 def pie_chart(df):
     fig = px.pie(
         df, 
@@ -152,6 +156,9 @@ def pie_chart(df):
             color="white"
         ),
     )
+
+
+
 
 def bar_chart(df, title="", x_axis_title=""):
     fig = px.bar(
@@ -184,8 +191,9 @@ def bar_chart(df, title="", x_axis_title=""):
         ),
     )
 
+
+
 unigram_data = load_unigram_data()
-lists_data = load_lists_data()
 
 
 with st.expander("Dependencies needed"):
@@ -202,7 +210,7 @@ import plotly.express as px
     
 with st.expander('Page configuration'):
     body='''#This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
-st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
+st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="centered")
 
 #This dict will be used to map different colour for each subject from the 8 broad categories 
 colors = {}
@@ -219,9 +227,10 @@ def color_map(item):
 
 st.subheader('Unigram maps')
 
+body_unigram_maps='This table demonstrates the count value for each pair of Subject and Experience and acts as source.'
+st.markdown(body_unigram_maps, unsafe_allow_html=True)
+
 st.write(unigram_data.drop(columns=["text", "colors"]))
-
-
 with st.expander("Code Block for Unigram maps table rendered above"):
     body='''
 #This function optimize performance by re-running the followed function if any change relevant to it happens. 
@@ -242,62 +251,207 @@ def load_unigram_data():
     #Populating the color code as defined above, available in the 'colors' dictionary to the whole dataset
     df["colors"] = df["Subject"].map(color_map)
     return df
+    
 #the library function that renders the dataframe, text and colors are temporary variable added to dataframe for providing color gradient to the bubbles in the bubble chart
 st.write(unigram_data.drop(columns=["text", "colors"]))
     '''
     st.code(body, language = 'python')
   
+  
+  
    
+#Add a horizontal bar
 st.markdown("""<hr/>""", unsafe_allow_html=True)
-    
-    
- 
 
-st.sidebar.subheader('Select a category of experience')
-st.subheader('Number of Subject occurances with respect to chosen Category of Experience')
-st.write("\n")
+#Add sub heading on the sidebar
+st.sidebar.subheader('Select a Category of Experience')
 option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
+include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
+number_of_rows_experience = st.sidebar.slider('Number of rows', min_value=1, max_value=8, value=5)
+st.sidebar.markdown("""<hr/>""", unsafe_allow_html=True)
 
+#Add sub heading on the main page
+st.subheader('Subject occurances for the Category of Experience')
+st.markdown("Choose the appropiate filter on the sidebar at left under the **Select a Category of Experience**",unsafe_allow_html=True)
+st.write("\n")
+
+#Filtering dataframe based on the filters selected on the sidebar
+filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience)
+st.write(filtered_df_experience)
+
+
+with st.expander("Dataframe Filtering for Category of Experience"):
+
+    st.markdown("Below code explains how the filters on the sidebar are placed. Values selected in the filter are then used to subset the dataframe in the table above", unsafe_allow_html=True)
+    experience_filter='''
+#Add sub heading on the sidebar, refering the 1st heading
+st.sidebar.subheader('Select a category of experience')
+
+#Options to filter data
+option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
 include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
 number_of_rows_experience = st.sidebar.slider('Number of rows', min_value=1, max_value=8, value=5)
 
+#Filtering dataframe based on the filters selected on the sidebar
 filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience)
-
 st.write(filtered_df_experience)
+    '''
+    st.code(experience_filter, language = 'python')
+    
+    st.markdown("Below code explains filter_by_value function, which is used to subset the main unigram data. Functions should come before the call to the function, however for understanding purpose it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
+    
+    filter_function='''
+#Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience	
+admin_categories = [
+    "Land Revenue Mgmt & District Admn",
+    "Personnel and General Administration",
+    "Finance"
+]
 
+def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percentage=False, include_other=False):
+
+    df = df.loc[df[col].str.contains(value)]
+    df.sort_values(["Count"], ascending=False, inplace=True)
+
+    if include_admin and col == "Subject":
+        for category in admin_categories:
+            df = df.loc[df["Experience"] != category]
+
+    temp = df[number_of_rows:]
+    df = pd.DataFrame(df.head(number_of_rows))
+    value_sum = temp["Count"].sum()
+    
+    if include_other:
+        df = df.append({
+            df.columns[0]: "Remaining",
+            df.columns[1]: "Remaining",
+            "Count": value_sum
+        }, ignore_index=True)
+
+    df.drop(columns=[col], inplace=True)
+    df.set_index(df.columns[0], inplace=True) 
+
+    if percentage:
+        sum = df["Count"].sum()
+        df = pd.DataFrame(df["Count"].apply(lambda x: round(((x / sum) * 100), 2)))
+
+    try:
+        return df.drop(columns=["text", "colors"])
+    except:
+        return df
+        
+    '''
+    st.code(filter_function, language = 'python')
+            
+
+#Utilising Streamlit container function to make a grid and place Bar and Pie Chart side-by-side
 plot_container_experience = st.container()
-col1, col2 = plot_container_experience.columns([7, 1])
 
+col1, col2 = plot_container_experience.columns([7, 1])
 col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
 col2.plotly_chart(pie_chart(filtered_df_experience))
+with st.expander("Bar Chart for Category of Experience"):
 
-# st.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
-# # st.bar_chart(data=filtered_df_experience, height=600)
+    st.markdown("Function call to bar_chart function with the filtered dataframe", unsafe_allow_html=True)
+    
+    experience_bar_code='''
+col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
+    '''
+    st.code(experience_bar_code, language = 'python')
+    
+    st.markdown("Below code explains the bar_chart function. Function definition should come before call to the function, however only for understanding purpose it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
+    
+    bar_chart_code='''
+def bar_chart(df, title="", x_axis_title=""):
+    fig = px.bar(
+        df,
+        x=df.index,
+        y="Count",
+        title=title
+    )
 
-# st.plotly_chart(pie_chart(filtered_df_experience))
+    fig.update_layout(
+        autosize=False,
+        height=600
+    )
 
-st.sidebar.markdown("""<hr/>""", unsafe_allow_html=True)
+    fig.update_xaxes(
+        title=x_axis_title,
+    )
+
+    fig.update_yaxes(
+        title="Count",
+        showgrid=False,
+    )
+
+    
+
+    return fig.update_traces(
+        hoverinfo="text",
+        insidetextfont=dict(
+            color="white"
+        ),
+    )
+    '''
+    st.code(bar_chart_code, language = 'python')
+    
+    
+
+
 st.markdown("""<hr/>""", unsafe_allow_html=True)
 
-st.sidebar.subheader('Select a Subject')
-st.subheader('Number of Category of Experience occurances with respect to chosen Subject')
-st.write("\n")
-option_subject = st.sidebar.selectbox("", unigram_data['Subject'].unique())
 
+#Filter options for the second sub heading 
+st.sidebar.subheader('Select a Subject')
+option_subject = st.sidebar.selectbox("", unigram_data['Subject'].unique())
 include_admin = st.sidebar.checkbox('Remove Top Admin Categories')
 percentage = st.sidebar.checkbox('Show percentage', value=True)
-
 number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, value=5)
 
-filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, percentage=percentage)
 
+st.subheader('Category of Experience occurances with respect to Subject')
+st.markdown("Choose the appropiate filter on the sidebar at left under the **Select a Subject**",unsafe_allow_html=True)
+st.write("\n")
+filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, percentage=percentage)
+st.write(filtered_df_subject)
+with st.expander("Dataframe Filtering for Subject"):
+
+    st.markdown("Below code explains how the filters on the sidebar are placed. Values selected in the filter are then used to subset the dataframe in the table above", unsafe_allow_html=True)
+    subject_filter='''
+#Filter options for the second sub heading 
+st.sidebar.subheader('Select a Subject')
+option_subject = st.sidebar.selectbox("", unigram_data['Subject'].unique())
+include_admin = st.sidebar.checkbox('Remove Top Admin Categories')
+percentage = st.sidebar.checkbox('Show percentage', value=True)
+number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, value=5)
+
+#utilising the filtered value for subsetting the dataset
+filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, percentage=percentage)
 st.write(filtered_df_subject)
 
+
+    '''
+    st.code(subject_filter, language = 'python')
+    
+    st.markdown("Refer the second code snippet under the expanding section **Dataframe filtering for Category of Experience** for filter_by_value function code.", unsafe_allow_html=True)
+    
+    
+    
+#Containers in streamlit provide functionality to divide the area into columns and control the content to be placed in each column 
 plot_container_subject = st.container()
-col3, col4 = plot_container_subject.columns([7, 1])
+col3, col4= plot_container_subject.columns([7,1])
 
 col3.plotly_chart(bar_chart(filtered_df_subject, title="Number of Category of Experience occurances with respect to chosen Subject", x_axis_title="Category of Experience"))
 col4.plotly_chart(pie_chart(filtered_df_subject))
+
+
+with st.expander("Pie Chart for Subject"):
+    pie_code='''
+col4.plotly_chart(pie_chart(filtered_df_subject))
+    '''
+    st.code(pie_code, language = 'python')
+
+    
 
 st.sidebar.markdown("""<hr/>""", unsafe_allow_html=True)
 st.markdown("""<hr/>""", unsafe_allow_html=True)
