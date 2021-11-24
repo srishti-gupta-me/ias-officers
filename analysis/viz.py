@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 
+'''This application aims to provide an interactive tool to visualise and study Subjects studied and Department Alloted to an IAS. The data is extracted from TCPD-IAS Dataset.
+A good starting point to understand who it is build would be to refer to the linked TCPD column here--provide the link''' 
+
 #This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 st.set_page_config(page_title="IAS Subject Analysis", page_icon="📚", layout="centered")
 
@@ -228,7 +231,7 @@ def load_unigram_data():
 st.write(unigram_data.drop(columns=["text", "colors"]))
     '''
     st.code(body, language = 'python')
-    '''text and colors were temporary variable made to add asthestic feature to the charts'''
+
     
 st.markdown("""<hr/>""", unsafe_allow_html=True)
     
