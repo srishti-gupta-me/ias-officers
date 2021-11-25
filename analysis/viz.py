@@ -37,8 +37,8 @@ def color_map(item):
 @st.cache
 #Function to load the unigram mapping data from csv and filter
 def load_unigram_data():
-    df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
-    #df = pd.read_csv('./processed/unigram maps.csv')
+    #df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
+    df = pd.read_csv('./processed/unigram maps.csv')
     #Dropping rows where the experience is NA
     df = df.loc[df["Experience"] != "N.A."]
     
