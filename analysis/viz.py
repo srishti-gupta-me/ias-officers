@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 
-st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="centered")
+st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="wide")
 #This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 
 st.header('IAS Subject and Experience Analysis Tool')
