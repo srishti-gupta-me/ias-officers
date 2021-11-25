@@ -1,3 +1,4 @@
+from numpy.core.arrayprint import dtype_is_implied
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -5,8 +6,9 @@ from plotly.tools import FigureFactory as ff
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
+import math
 
-st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="centered")
+st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="wide")
 #This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 
 st.header('IAS Subject and Experience Analysis Tool')
@@ -36,13 +38,29 @@ def color_map(item):
 #Function to load the unigram mapping data from csv and filter
 def load_unigram_data():
     #df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
-    df = pd.read_csv('./analysis/processed/unigram maps.csv')
+    df = pd.read_csv('./processed/unigram maps.csv')
     #Dropping rows where the experience is NA
     df = df.loc[df["Experience"] != "N.A."]
     
     #Adding a new column that contains the count value as string, for example 'size:count' 
     df["text"] = df["Count"].apply(lambda x: "size: "+str(x))
     
+    #Adding a percentage column per subject
+    df["p_Subject"] = [0] * df.shape[0]
+    df["p_Subject_text"] = [""] * df.shape[0]
+    for subject in df["Subject"].unique():
+        sum_subject_count = df.loc[df["Subject"] == subject]["Count"].sum()
+        df.loc[df["Subject"] == subject, "p_Subject"] = df.loc[df["Subject"] == subject]["Count"].apply(lambda x: round(((x / sum_subject_count) * 100), 2))
+        df.loc[df["Subject"] == subject, "p_Subject_text"] = df.loc[df["Subject"] == subject]["p_Subject"].apply(lambda x: str(x) + f"% of all {subject}")
+
+
+    df["p_Experience"] = [0] * df.shape[0]
+    df["p_Experience_text"] = [""] * df.shape[0]
+    for experience in df["Experience"].unique():
+        sum_experience_count = df.loc[df["Experience"] == experience]["Count"].sum()
+        df.loc[df["Experience"] == experience, "p_Experience"] = df.loc[df["Experience"] == experience]["Count"].apply(lambda x: round(((x / sum_experience_count) * 100), 2))
+        df.loc[df["Experience"] == experience, "p_Experience_text"] = df.loc[df["Experience"] == experience]["p_Experience"].apply(lambda x: str(x) + f"% of all {experience}")
+
     #Providing each subject out of the 8 broad caategories a unique color code
     for i, item in enumerate(df["Subject"].unique()):
         colors[item] = lower + i
@@ -96,14 +114,31 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
         return df
 
 
+def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[], filter_experience_list=[], include_other=False):
+    scale_factor_y = 25
 
-
-
-def scatter_plot(df, include_top_cat=True, min_value=50):
     if include_top_cat:
         df = df.loc[df["Experience"] != 'Land Revenue Mgmt & District Admn']
         df = df.loc[df["Experience"] != 'Personnel and General Administration']
         df = df.loc[df["Experience"] != 'Finance']
+
+    if len(filter_subject_list) > 0:
+        new_temp = pd.DataFrame()
+        for subject in filter_subject_list:
+            new_df = df.loc[df["Subject"] == subject]
+            new_temp = new_temp.append(new_df)
+    
+        df = new_temp
+
+    if len(filter_experience_list) > 0:
+        new_temp = pd.DataFrame()
+        for experience in filter_experience_list:
+            new_df = df.loc[df["Experience"] == experience]
+            new_temp = new_temp.append(new_df)
+    
+        df = new_temp
+
+    df = df.sort_values(["Count"], ascending=False)
 
     df = df.loc[df["Count"] > min_value]
     max_value = df["Count"].max()
@@ -111,25 +146,33 @@ def scatter_plot(df, include_top_cat=True, min_value=50):
     length_y_axis = df["Subject"].unique().shape[0]
     length_x_axis = df["Experience"].unique().shape[0]
 
+    height = 400 + (length_y_axis * scale_factor_y)
+
     fig = go.Figure(data=[go.Scatter(
         x=df["Experience"].to_list(),
         y=df["Subject"].to_list(),
-        text=df["text"].to_list(),
+        text=df["p_Subject_text"].to_list(),
         mode="markers",
         marker=dict(
             size=df["Count"].apply(lambda x: x*50/max_value).to_list(),
+            # size=df["Count"].apply(lambda x: math.sigmoid(x) * 10).to_list(),
             color = df["colors"].to_list(),
         )
     )])
 
     fig = fig.update_layout(
         autosize=False,
-        height=100 + (length_y_axis * 75),
-        width=100 + (length_x_axis * 75),
+        height=height,
+        width=1500,
     )
 
     # remove grid lines from the figure
     fig.update_xaxes(
+        automargin=False,
+        autorange=False,
+        range=[-2, length_x_axis],
+        dtick=1,
+        tick0=0,
         showgrid=False,
         type="category",
     )
@@ -150,16 +193,17 @@ def pie_chart(df):
     )
     
     fig.update_layout(
-    title={
-        'text': "Subjects",
-        'y':0.9,
-        'x':0.5,
-        'xanchor':'center',
-        'yanchor':'top'})
+        title={
+            'text': "Subjects",
+            'y':0.9,
+            'x':0.5,
+            'xanchor':'center',
+            'yanchor':'top'}
+    )
         
     return fig.update_traces(
         hoverinfo="label+percent",
-        textinfo="value",
+        textinfo="percent",
         insidetextfont=dict(
             color="white"
         ),
@@ -210,13 +254,13 @@ with st.expander("Getting Started and Dependencies"):
     st.write("\n")
     st.markdown("To host the application online from Github (database at Github) an application dependencies file such as Pipfile, environment.yml, requirements.txt or pyproject.toml will be required by Streamlit Cloud to download the right packages during hosting application online. More about it [here](https://docs.streamlit.io/streamlit-cloud/get-started/deploy-an-app/app-dependencies), also refer Pipfile at the **Github repo** ")
     body='''import streamlit as st
-import pandas as pd
-import numpy as np
-from plotly.tools import FigureFactory as ff
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-import plotly.express as px
-''' 
+        import pandas as pd
+        import numpy as np
+        from plotly.tools import FigureFactory as ff
+        import matplotlib.pyplot as plt
+        import plotly.graph_objects as go
+        import plotly.express as px
+        ''' 
     st.code(body, language = 'python')
     
     
@@ -528,10 +572,12 @@ st.subheader('Bubble map')
 st.markdown("Choose the appropiate filter on the sidebar under the heading **Bubble map**", unsafe_allow_html=True)
 
 #Filter option for Bubble map
+filter_subject_list = st.sidebar.multiselect('Subjects', unigram_data['Subject'].unique())
+filter_experience_list = st.sidebar.multiselect('Category of Experience', unigram_data['Experience'].unique())
 include_admin_scatter = st.sidebar.checkbox('Remove Top Admin Categories', key="include_admin_scatter")
 num_range = st.sidebar.slider('Filter threshold', min_value=1, max_value=600, value=20)
 
-st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range))
+st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range, filter_subject_list=filter_subject_list, filter_experience_list=filter_experience_list))
 
 with st.expander("Sidebar Filter and Bubble Map"):
 
