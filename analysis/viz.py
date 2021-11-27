@@ -407,7 +407,7 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
 #Utilising Streamlit container function to make a grid and place Bar and Pie Chart side-by-side
 plot_container_experience = st.container()
 
-col1, col2 = plot_container_experience.columns([7, 1])
+col1, col2 = plot_container_experience.columns([1, 1])
 col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
 col2.plotly_chart(pie_chart(filtered_df_experience))
 
@@ -518,7 +518,7 @@ st.write(filtered_df_subject)
     
 #Containers in streamlit provide functionality to divide the area into columns and control the content to be placed in each column 
 plot_container_subject = st.container()
-col3, col4= plot_container_subject.columns([7,1])
+col3, col4= plot_container_subject.columns([1,1])
 
 col3.plotly_chart(bar_chart(filtered_df_subject, title="Number of Category of Experience occurances with respect to chosen Subject", x_axis_title="Category of Experience"))
 col4.plotly_chart(pie_chart(filtered_df_subject))
