@@ -7,12 +7,20 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 import math
+from PIL import Image
 
 st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="wide")
 #This streamlit library function sets the page title as evident on the tab where the application is running and the favicon
 
-st.header('IAS Subject and Experience Analysis Tool')
 
+
+#image=Image.open(r'/home/srishti/Downloads/ias-officers/logo.png')
+image=Image.open(r'./logo.png')
+
+logo=st.container()
+logo_col1, logo_col2=logo.columns([7,1])
+logo_col1.header('IAS Subject and Experience Analysis Tool')
+logo_col2.image(image)
 
 
 body1="This application aims to provide an interactive tool to visualise variables <u>Subject</u> and <u>Department</u> from the TCPD-IAS Dataset. A good starting point to understand how it is build would be to refer to the linked **TCPD column here--provide the link**. This application utilizes [Streamlit.io](https://streamlit.io/) and [Plotly](https://plotly.com/). Streamlit.io provides a powerful Streamlit library, which has functions that can make visualisations and add features quickly with minimal code. Moreover, Streamlit.io provides a cloud solution to host the visualisations dashboard online and sharing easy. In this application Streamlit library functions and Plotly functions are used to render charts and tables. The dashboard is then hosted using Streamlit cloud utility with data source at Github."
