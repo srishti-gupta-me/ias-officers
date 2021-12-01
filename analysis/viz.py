@@ -90,6 +90,8 @@ admin_categories = [
 ]
 
 
+
+
 def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percentage=False, include_other=False):
 
     df = df.loc[df[col].str.contains(value)]
@@ -116,6 +118,11 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
     if percentage:
         sum = df["Count"].sum()
         df = pd.DataFrame(df["Count"].apply(lambda x: round(((x / sum) * 100), 2)))
+
+    try:
+        df = df.drop(columns=["p_Subject", "p_Subject_text", "p_Experience", "p_Experience_text"])
+    except:
+        pass
 
     try:
         return df.drop(columns=["text", "colors"])
@@ -170,9 +177,8 @@ def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[],
     )])
 
     fig = fig.update_layout(
-        autosize=False,
+        autosize=True,
         height=height,
-        width=1500,
     )
 
     # remove grid lines from the figure
@@ -287,41 +293,41 @@ st.subheader('Unigram maps')
 body_unigram_maps='This table demonstrates the count value for each pair of Subject and Experience and acts as source.'
 st.markdown(body_unigram_maps, unsafe_allow_html=True)
 
-st.write(unigram_data.drop(columns=["text", "colors", "p_Subject", "p_Subject_text", "p_Experience", "p_Experience_text"]))
+st.write(unigram_data.drop(columns=["text", "colors","p_Subject", "p_Subject_text", "p_Experience", "p_Experience_text"]))
 with st.expander("Code Block for Unigram maps table rendered above"):
     body='''
-        #This dict will be used to map different colour for each subject from the 8 broad categories 
-        colors = {}
+#This dict will be used to map different colour for each subject from the 8 broad categories 
+colors = {}
 
-        #Initial value
-        lower = 100
+#Initial value
+lower = 100
 
-        #Function to iterate over the list of 8 broad subject category and provide color value
-        def color_map(item):
-            return colors[item]
-            
-            
-        #This function optimize performance by re-running the followed function if any change relevant to it happens. 
-        @st.cache
-        #Function to load the unigram mapping data from csv and filter
-        def load_unigram_data():
-            df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
-            #Dropping rows where the experience is NA
-            df = df.loc[df["Experience"] != "N.A."]
-            
-            #Adding a new column that contains the count value as string, for example 'size:count' 
-            df["text"] = df["Count"].apply(lambda x: "size: "+str(x))
-            
-            #Providing each subject out of the 8 broad caategories a unique color code
-            for i, item in enumerate(df["Subject"].unique()):
-                colors[item] = lower + i
-            
-            #Populating the color code as defined above, available in the 'colors' dictionary to the whole dataset
-            df["colors"] = df["Subject"].map(color_map)
-            return df
-            
-        #the library function that renders the dataframe, text and colors are temporary variable added to dataframe for providing color gradient to the bubbles in the bubble chart
-        st.write(unigram_data.drop(columns=["text", "colors"]))
+#Function to iterate over the list of 8 broad subject category and provide color value
+def color_map(item):
+    return colors[item]
+    
+    
+#This function optimize performance by re-running the followed function if any change relevant to it happens. 
+@st.cache
+#Function to load the unigram mapping data from csv and filter
+def load_unigram_data():
+    df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
+    #Dropping rows where the experience is NA
+    df = df.loc[df["Experience"] != "N.A."]
+    
+    #Adding a new column that contains the count value as string, for example 'size:count' 
+    df["text"] = df["Count"].apply(lambda x: "size: "+str(x))
+    
+    #Providing each subject out of the 8 broad caategories a unique color code
+    for i, item in enumerate(df["Subject"].unique()):
+        colors[item] = lower + i
+    
+    #Populating the color code as defined above, available in the 'colors' dictionary to the whole dataset
+    df["colors"] = df["Subject"].map(color_map)
+    return df
+    
+#the library function that renders the dataframe, text and colors are temporary variable added to dataframe for providing color gradient to the bubbles in the bubble chart
+st.write(unigram_data.drop(columns=["text", "colors"]))
     '''
     st.code(body, language = 'python')
   
@@ -335,8 +341,8 @@ st.markdown("""<hr/>""", unsafe_allow_html=True)
 #Add sub heading on the sidebar
 st.sidebar.subheader('Select a Category of Experience')
 option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
-include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
-number_of_rows_experience = st.sidebar.slider('Number of rows', min_value=1, max_value=8, value=5)
+# include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
+number_of_rows_experience = 8 #st.sidebar.slider('Number of rows', min_value=1, max_value=8, value=5)
 st.sidebar.markdown("""<hr/>""", unsafe_allow_html=True)
 
 #Add sub heading on the main page
@@ -345,7 +351,7 @@ st.markdown("Choose the appropiate filter on the sidebar at left under the **Sel
 st.write("\n")
 
 #Filtering dataframe based on the filters selected on the sidebar
-filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience).drop(columns=["p_Subject", "p_Subject_text", "p_Experience", "p_Experience_text"])
+filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience)
 st.write(filtered_df_experience)
 
 
@@ -353,61 +359,61 @@ with st.expander("Sidebar filter and Dataframe Filtering for 'Category of Experi
 
     st.markdown("Below code explains how the filters on the sidebar are placed. Values selected in the filter are then used to subset the dataframe in the table above", unsafe_allow_html=True)
     experience_filter='''
-        #Add sub heading on the sidebar, refering the 1st heading
-        st.sidebar.subheader('Select a category of experience')
+#Add sub heading on the sidebar, refering the 1st heading
+st.sidebar.subheader('Select a category of experience')
 
-        #Options to filter data
-        option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
-        include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
-        number_of_rows_experience = st.sidebar.slider('Number of row	s', min_value=1, max_value=8, value=5)
+#Options to filter data
+option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
+include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
+number_of_rows_experience = st.sidebar.slider('Number of row	s', min_value=1, max_value=8, value=5)
 
-        #Filtering dataframe based on the filters selected on the sidebar
-        filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience)
-        st.write(filtered_df_experience)
+#Filtering dataframe based on the filters selected on the sidebar
+filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience)
+st.write(filtered_df_experience)
     '''
     st.code(experience_filter, language = 'python')
     
     st.markdown("Below code explains filter_by_value function, which is used to subset the main unigram data. Functions should come before the call to the function, however for understanding purpose it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
     
     filter_function='''
-        #Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience	
-        admin_categories = [
-            "Land Revenue Mgmt & District Admn",
-            "Personnel and General Administration",
-            "Finance"
-        ]
+#Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience	
+admin_categories = [
+    "Land Revenue Mgmt & District Admn",
+    "Personnel and General Administration",
+    "Finance"
+]
 
-        def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percentage=False, include_other=False):
+def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percentage=False, include_other=False):
 
-            df = df.loc[df[col].str.contains(value)]
-            df.sort_values(["Count"], ascending=False, inplace=True)
+    df = df.loc[df[col].str.contains(value)]
+    df.sort_values(["Count"], ascending=False, inplace=True)
 
-            if include_admin and col == "Subject":
-                for category in admin_categories:
-                    df = df.loc[df["Experience"] != category]
+    if include_admin and col == "Subject":
+        for category in admin_categories:
+            df = df.loc[df["Experience"] != category]
 
-            temp = df[number_of_rows:]
-            df = pd.DataFrame(df.head(number_of_rows))
-            value_sum = temp["Count"].sum()
-            
-            if include_other:
-                df = df.append({
-                    df.columns[0]: "Remaining",
-                    df.columns[1]: "Remaining",
-                    "Count": value_sum
-                }, ignore_index=True)
+    temp = df[number_of_rows:]
+    df = pd.DataFrame(df.head(number_of_rows))
+    value_sum = temp["Count"].sum()
+    
+    if include_other:
+        df = df.append({
+            df.columns[0]: "Remaining",
+            df.columns[1]: "Remaining",
+            "Count": value_sum
+        }, ignore_index=True)
 
-            df.drop(columns=[col], inplace=True)
-            df.set_index(df.columns[0], inplace=True) 
+    df.drop(columns=[col], inplace=True)
+    df.set_index(df.columns[0], inplace=True) 
 
-            if percentage:
-                sum = df["Count"].sum()
-                df = pd.DataFrame(df["Count"].apply(lambda x: round(((x / sum) * 100), 2)))
+    if percentage:
+        sum = df["Count"].sum()
+        df = pd.DataFrame(df["Count"].apply(lambda x: round(((x / sum) * 100), 2)))
 
-            try:
-                return df.drop(columns=["text", "colors"])
-            except:
-                return df
+    try:
+        return df.drop(columns=["text", "colors"])
+    except:
+        return df
         
     '''
     st.code(filter_function, language = 'python')
@@ -416,7 +422,7 @@ with st.expander("Sidebar filter and Dataframe Filtering for 'Category of Experi
 #Utilising Streamlit container function to make a grid and place Bar and Pie Chart side-by-side
 plot_container_experience = st.container()
 
-col1, col2 = plot_container_experience.columns([1, 1])
+col1, col2 = plot_container_experience.columns([2, 1])
 col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
 col2.plotly_chart(pie_chart(filtered_df_experience))
 
@@ -493,6 +499,7 @@ st.markdown("""<hr/>""", unsafe_allow_html=True)
 st.sidebar.subheader('Select a Subject')
 option_subject = st.sidebar.selectbox("", unigram_data['Subject'].unique())
 include_admin = st.sidebar.checkbox('Remove Top Admin Categories')
+include_other_subject = st.sidebar.checkbox("Include combined remaining entries", key="subjects")
 # percentage = st.sidebar.checkbox('Show percentage', value=True)
 number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, value=5)
 
@@ -500,7 +507,7 @@ number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, 
 st.subheader('Category of Experience occurances with respect to Subject')
 st.markdown("Choose the appropiate filter on the sidebar at left under the **Select a Subject**",unsafe_allow_html=True)
 st.write("\n")
-filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows)
+filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, include_other=include_other_subject)
 st.write(filtered_df_subject)
 with st.expander("Sidebar Filter and Dataframe Filtering for Subject"):
 
@@ -527,7 +534,7 @@ st.write(filtered_df_subject)
     
 #Containers in streamlit provide functionality to divide the area into columns and control the content to be placed in each column 
 plot_container_subject = st.container()
-col3, col4= plot_container_subject.columns([1,1])
+col3, col4= plot_container_subject.columns([2,1])
 
 col3.plotly_chart(bar_chart(filtered_df_subject, title="Number of Category of Experience occurances with respect to chosen Subject", x_axis_title="Category of Experience"))
 col4.plotly_chart(pie_chart(filtered_df_subject))

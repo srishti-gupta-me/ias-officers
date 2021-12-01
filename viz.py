@@ -177,9 +177,8 @@ def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[],
     )])
 
     fig = fig.update_layout(
-        autosize=False,
+        autosize=True,
         height=height,
-        width=1500,
     )
 
     # remove grid lines from the figure
@@ -342,8 +341,8 @@ st.markdown("""<hr/>""", unsafe_allow_html=True)
 #Add sub heading on the sidebar
 st.sidebar.subheader('Select a Category of Experience')
 option_experience = st.sidebar.selectbox("", unigram_data['Experience'].unique())
-include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
-number_of_rows_experience = st.sidebar.slider('Number of rows', min_value=1, max_value=8, value=5)
+# include_other_experience = st.sidebar.checkbox("Include combined remaining entries")
+number_of_rows_experience = 8 #st.sidebar.slider('Number of rows', min_value=1, max_value=8, value=5)
 st.sidebar.markdown("""<hr/>""", unsafe_allow_html=True)
 
 #Add sub heading on the main page
@@ -352,7 +351,7 @@ st.markdown("Choose the appropiate filter on the sidebar at left under the **Sel
 st.write("\n")
 
 #Filtering dataframe based on the filters selected on the sidebar
-filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience, include_other=include_other_experience)
+filtered_df_experience = filter_by_value(unigram_data.copy(), 'Experience', option_experience, number_of_rows=number_of_rows_experience)
 st.write(filtered_df_experience)
 
 
@@ -500,6 +499,7 @@ st.markdown("""<hr/>""", unsafe_allow_html=True)
 st.sidebar.subheader('Select a Subject')
 option_subject = st.sidebar.selectbox("", unigram_data['Subject'].unique())
 include_admin = st.sidebar.checkbox('Remove Top Admin Categories')
+include_other_subject = st.sidebar.checkbox("Include combined remaining entries", key="subjects")
 # percentage = st.sidebar.checkbox('Show percentage', value=True)
 number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, value=5)
 
@@ -507,7 +507,7 @@ number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, 
 st.subheader('Category of Experience occurances with respect to Subject')
 st.markdown("Choose the appropiate filter on the sidebar at left under the **Select a Subject**",unsafe_allow_html=True)
 st.write("\n")
-filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows)
+filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, include_other=include_other_subject)
 st.write(filtered_df_subject)
 with st.expander("Sidebar Filter and Dataframe Filtering for Subject"):
 
