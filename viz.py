@@ -130,7 +130,7 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
         return df
 
 
-def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[], filter_experience_list=[], include_other=False):
+def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[], filter_experience_list=[], invert_axis=False):
     scale_factor_y = 25
 
     if include_top_cat:
@@ -164,34 +164,57 @@ def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[],
 
     height = 400 + (length_y_axis * scale_factor_y)
 
+    x = df["Experience"].to_list()
+    y = df["Subject"].to_list()
+    text = df["p_Subject_text"].to_list()
+
+    if invert_axis:
+        x, y = y, x
+        text = df["p_Experience_text"].to_list()
+
     fig = go.Figure(data=[go.Scatter(
-        x=df["Experience"].to_list(),
-        y=df["Subject"].to_list(),
-        text=df["p_Subject_text"].to_list(),
+        x=x,
+        y=y,
+        text=text,
         mode="markers",
         marker=dict(
             size=df["Count"].apply(lambda x: x*50/max_value).to_list(),
-            # size=df["Count"].apply(lambda x: math.sigmoid(x) * 10).to_list(),
             color = df["colors"].to_list(),
         )
     )])
 
-    fig = fig.update_layout(
-        autosize=True,
-        height=height,
-    )
+    if not invert_axis:
+        fig = fig.update_layout(
+            autosize=True,
+            height=height,
+            width=1500,
+        )
+    else:
+        fig = fig.update_layout(
+            autosize=True,
+            width=1000,
+            height=1200,
+        )
 
     # remove grid lines from the figure
-    fig.update_xaxes(
-        automargin=False,
-        autorange=False,
-        range=[-2, length_x_axis],
-        dtick=1,
-        tick0=0,
-        showgrid=False,
-        type="category",
-    )
-    fig.update_yaxes(showgrid=False)
+    if not invert_axis:
+        fig.update_xaxes(
+            automargin=False,
+            autorange=False,
+            range=[-2, length_x_axis],
+            dtick=1,
+            tick0=0,
+            showgrid=False,
+            type="category",
+        )
+        fig.update_yaxes(showgrid=False)
+    else:
+        fig.update_xaxes(
+            showgrid=False,
+        )
+        fig.update_yaxes(
+            showgrid=False,
+        )
     
     return fig
 
@@ -594,6 +617,7 @@ include_admin_scatter = st.sidebar.checkbox('Remove Top Admin Categories', key="
 num_range = st.sidebar.slider('Filter threshold', min_value=1, max_value=600, value=20)
 
 st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range, filter_subject_list=filter_subject_list, filter_experience_list=filter_experience_list))
+st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range, filter_subject_list=filter_subject_list, filter_experience_list=filter_experience_list, invert_axis=True))
 
 with st.expander("Sidebar Filter and Bubble Map"):
 
