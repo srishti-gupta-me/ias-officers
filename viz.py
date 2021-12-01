@@ -132,6 +132,9 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
 
 def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[], filter_experience_list=[], invert_axis=False):
     scale_factor_y = 25
+    bubble_scale = 1
+    bubble_size_max = 30
+
 
     if include_top_cat:
         df = df.loc[df["Experience"] != 'Land Revenue Mgmt & District Admn']
@@ -157,7 +160,6 @@ def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[],
     df = df.sort_values(["Count"], ascending=False)
 
     df = df.loc[df["Count"] > min_value]
-    max_value = df["Count"].max()
 
     length_y_axis = df["Subject"].unique().shape[0]
     length_x_axis = df["Experience"].unique().shape[0]
@@ -168,9 +170,16 @@ def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[],
     y = df["Subject"].to_list()
     text = df["p_Subject_text"].to_list()
 
+    max_value = df["p_Subject"].max()
+    relevant_list = df["p_Subject"].copy()
+
     if invert_axis:
         x, y = y, x
         text = df["p_Experience_text"].to_list()
+        max_value = df["p_Experience"].max()
+        relevant_list = df["p_Experience"].copy()
+
+    bubble_scale = (bubble_size_max / max_value)
 
     fig = go.Figure(data=[go.Scatter(
         x=x,
@@ -178,7 +187,7 @@ def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[],
         text=text,
         mode="markers",
         marker=dict(
-            size=df["Count"].apply(lambda x: x*50/max_value).to_list(),
+            size=relevant_list.apply(lambda x: x*bubble_scale).to_list(),#apply(lambda x: x*50/max_value).to_list(),
             color = df["colors"].to_list(),
         )
     )])
@@ -613,7 +622,7 @@ st.markdown("Choose the appropiate filter on the sidebar under the heading **Bub
 #Filter option for Bubble map
 filter_subject_list = st.sidebar.multiselect('Subjects', unigram_data['Subject'].unique())
 filter_experience_list = st.sidebar.multiselect('Category of Experience', unigram_data['Experience'].unique())
-include_admin_scatter = st.sidebar.checkbox('Remove Top Admin Categories', key="include_admin_scatter")
+include_admin_scatter = st.sidebar.checkbox('Remove Top Admin Categories', key="include_admin_scatter", value=True)
 num_range = st.sidebar.slider('Filter threshold', min_value=1, max_value=600, value=20)
 
 st.plotly_chart(scatter_plot(unigram_data.copy(), include_top_cat=include_admin_scatter, min_value=num_range, filter_subject_list=filter_subject_list, filter_experience_list=filter_experience_list))
