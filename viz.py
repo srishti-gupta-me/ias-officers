@@ -202,7 +202,7 @@ def scatter_plot(df, include_top_cat=True, min_value=50, filter_subject_list=[],
         fig = fig.update_layout(
             autosize=True,
             width=1000,
-            height=1200,
+            height=1500,
         )
 
     # remove grid lines from the figure
@@ -454,7 +454,7 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
 #Utilising Streamlit container function to make a grid and place Bar and Pie Chart side-by-side
 plot_container_experience = st.container()
 
-col1, col2 = plot_container_experience.columns([2, 1])
+col1, col2 = plot_container_experience.columns([1, 1])
 col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
 col2.plotly_chart(pie_chart(filtered_df_experience))
 
