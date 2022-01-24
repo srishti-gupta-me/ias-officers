@@ -1,0 +1,479 @@
+,Subject,Count,Category_of_Subject
+0,English Lit,545,Languages and Fine Arts
+2,French,115,Languages and Fine Arts
+3,Physics,1196,Natural Sciences
+4,Economic Dev.,24,Social Science and Liberal Arts
+5,Economics,2229,Social Science and Liberal Arts
+6,Botany,232,Natural Sciences
+7,Law,1141,"Governance, Law and Management"
+8,Mathematics,483,"Engineering, Technology and Mathematics"
+9,Chemistry,455,Natural Sciences
+10,Statistics,83,"Engineering, Technology and Mathematics"
+11,German,77,Languages and Fine Arts
+12,Philosophy,169,Social Science and Liberal Arts
+13,Political Sc.,1058,Social Science and Liberal Arts
+14,Development Economics,56,Social Science and Liberal Arts
+15,Civil Engg,231,"Engineering, Technology and Mathematics"
+16,History,1129,Social Science and Liberal Arts
+17,Accountancy,75,Finance
+18,Commerce,474,Finance
+19,Public Admn,355,"Governance, Law and Management"
+20,English,1018,Languages and Fine Arts
+21,Hindi,135,Languages and Fine Arts
+22,Geology,139,Natural Sciences
+23,Petrology,2,Natural Sciences
+24,Sociology,158,Social Science and Liberal Arts
+25,Intnl.affairs,9,"Governance, Law and Management"
+26,Electrical Engg.,313,"Engineering, Technology and Mathematics"
+27,Zoology,202,Natural Sciences
+28,Physical Chem,11,Natural Sciences
+29,Indl.mgt,16,"Governance, Law and Management"
+30,Punjabi,7,Languages and Fine Arts
+31,Local Self Govt,6,"Governance, Law and Management"
+32,Psychology,89,Social Science and Liberal Arts
+33,Business Admn.,345,"Governance, Law and Management"
+34,Sanskrit,68,Languages and Fine Arts
+35,Management,192,"Engineering, Technology and Mathematics"
+36,Food Technology,7,"Engineering, Technology and Mathematics"
+37,Chemical Engg,67,"Engineering, Technology and Mathematics"
+38,Rural Economics,3,Social Science and Liberal Arts
+39,Literature,1,Languages and Fine Arts
+40,Manpower Plg,5,Others
+41,Fine Arts,2,Languages and Fine Arts
+42,Intnl Trade.,24,"Governance, Law and Management"
+43,Pure Math.,8,"Engineering, Technology and Mathematics"
+44,Agriculture,164,Others
+45,Dev Adm,44,"Governance, Law and Management"
+46,Urban Planning,18,"Governance, Law and Management"
+47,Indl.economics,6,Social Science and Liberal Arts
+48,Auditing,3,Finance
+49,Anthropology,31,Social Science and Liberal Arts
+50,Organic Chemistry,11,Natural Sciences
+51,Labour Laws,15,"Governance, Law and Management"
+52,Commercial Law,3,"Governance, Law and Management"
+53,Oil Technology,1,"Engineering, Technology and Mathematics"
+54,Social Sciences,72,Social Science and Liberal Arts
+55,Physiology,8,Natural Sciences
+56,Education,73,Others
+57,Electronics,191,"Engineering, Technology and Mathematics"
+58,Constl.law,7,"Governance, Law and Management"
+59,Econometrics,8,Social Science and Liberal Arts
+60,Indian History,6,Social Science and Liberal Arts
+61,Indl.dev.,3,"Governance, Law and Management"
+62,Mountaineering,1,Others
+63,Banking,15,Finance
+64,Horticulture,13,Others
+65,Spanish,5,Languages and Fine Arts
+66,Geography,210,Social Science and Liberal Arts
+67,Nuclear Physics,14,Natural Sciences
+68,Ecology,7,Others
+69,Electronic.dp,1,"Engineering, Technology and Mathematics"
+70,Trade,3,"Governance, Law and Management"
+71,Italian,3,Languages and Fine Arts
+72,Social Planning,12,"Governance, Law and Management"
+73,Ayurvedic,6,Others
+74,Biology,17,Natural Sciences
+75,Forestry,26,Others
+76,App.Mathematics,6,"Engineering, Technology and Mathematics"
+77,Cooperation,15,"Governance, Law and Management"
+78,Company Law,8,"Governance, Law and Management"
+79,Mech.engg.,283,"Engineering, Technology and Mathematics"
+80,Cost Acct,23,Finance
+81,Marketing,38,"Governance, Law and Management"
+82,Modern Ind.Hist,25,Social Science and Liberal Arts
+83,Hydrology,2,Others
+84,Land Laws,2,"Governance, Law and Management"
+85,Engineeriing,23,"Engineering, Technology and Mathematics"
+86,Russian,32,Languages and Fine Arts
+87,Persian,5,Languages and Fine Arts
+88,Defence Studies,11,"Governance, Law and Management"
+89,Intnl.law,16,"Governance, Law and Management"
+90,Education Plg.,1,Others
+91,Metallurgy Engg,12,"Engineering, Technology and Mathematics"
+92,Telecomm Engg,2,"Engineering, Technology and Mathematics"
+93,Arabic,4,Languages and Fine Arts
+94,Agrl.Economics,13,Social Science and Liberal Arts
+95,Energy Planning,6,"Governance, Law and Management"
+96,Fiscal Studies,1,Others
+97,"Demography,",5,"Governance, Law and Management"
+98,Development,11,"Governance, Law and Management"
+99,Yoga,3,Others
+100,Dev Studies,30,Social Science and Liberal Arts
+101,Intnl Relations,26,"Governance, Law and Management"
+102,Metallurgy,8,"Engineering, Technology and Mathematics"
+103,Air&space Law,1,"Governance, Law and Management"
+104,Technology,12,"Engineering, Technology and Mathematics"
+105,Social Work,25,Social Science and Liberal Arts
+106,Mining.Engg.,14,"Engineering, Technology and Mathematics"
+107,Office Mgt.,1,"Governance, Law and Management"
+108,System Mgt,5,"Governance, Law and Management"
+109,Pers.Mgt.,30,"Governance, Law and Management"
+110,Ancient History,20,Social Science and Liberal Arts
+111,Ancient Ind.history,3,Social Science and Liberal Arts
+112,Export,3,"Governance, Law and Management"
+113,Cartograpyy,1,Social Science and Liberal Arts
+114,Planning.,17,"Governance, Law and Management"
+115,Indus Relations,9,"Governance, Law and Management"
+116,Bengali,7,Languages and Fine Arts
+117,Crimnology,5,Social Science and Liberal Arts
+118,Euro.history,2,Social Science and Liberal Arts
+119,Programing,1,"Engineering, Technology and Mathematics"
+120,Labour,3,"Governance, Law and Management"
+121,History (hons),21,Social Science and Liberal Arts
+122,Applied Mech,1,"Engineering, Technology and Mathematics"
+123,Geophysics,2,Natural Sciences
+124,System Analysis,7,"Governance, Law and Management"
+125,Finance,93,Finance
+126,Diplomacy,5,"Governance, Law and Management"
+127,Veterinary Sc.,39,Medical
+128,Radiometrology,1,"Engineering, Technology and Mathematics"
+129,Astronomy,2,"Engineering, Technology and Mathematics"
+130,Gender Analysis,2,Social Science and Liberal Arts
+131,Soviet Studies,1,Social Science and Liberal Arts
+132,Marketing Mgt,13,"Governance, Law and Management"
+133,Music,1,Languages and Fine Arts
+134,Epidemiology,1,Medical
+135,American Civiln,1,Social Science and Liberal Arts
+136,Intrnl Business,19,"Governance, Law and Management"
+137,Textile Engg.,7,"Engineering, Technology and Mathematics"
+138,Company Mgt.,7,"Governance, Law and Management"
+139,Public Policy,102,"Governance, Law and Management"
+140,Pharmacy,8,Others
+141,Intnl Studies,14,Social Science and Liberal Arts
+142,Labour Welfare,8,"Governance, Law and Management"
+143,Rural Dev,39,"Governance, Law and Management"
+144,Chinese,6,Languages and Fine Arts
+145,Animal Husby,21,Others
+146,Air Navigation Sys.,1,"Engineering, Technology and Mathematics"
+147,Cytogenetics,2,Natural Sciences
+148,Tourism,8,Others
+149,Metropolitan Planning,1,"Governance, Law and Management"
+150,Refrigeration,1,"Engineering, Technology and Mathematics"
+151,Human Res Mngmt,20,"Governance, Law and Management"
+152,Napalese,2,Languages and Fine Arts
+153,Public Enterpr,1,"Governance, Law and Management"
+154,Journalism,34,Social Science and Liberal Arts
+155,Library Science,4,Social Science and Liberal Arts
+156,Public Finance,5,Finance
+157,Intnl Economics,5,Social Science and Liberal Arts
+158,Bio Chemistry,25,Natural Sciences
+159,Petroleum Eco.,1,Social Science and Liberal Arts
+160,Fincl Mgt,26,"Governance, Law and Management"
+161,Applied Eco.,11,Social Science and Liberal Arts
+162,Water R Dev,5,"Governance, Law and Management"
+163,Labour Legisln,1,"Governance, Law and Management"
+164,Intrnl Deve Policy,8,"Governance, Law and Management"
+165,Home Science,1,Others
+166,Development Finance,1,"Governance, Law and Management"
+167,Income Tax,3,"Governance, Law and Management"
+168,Art,55,Languages and Fine Arts
+169,Science,73,Natural Sciences
+170,Human Res.mgt,8,"Governance, Law and Management"
+171,Rur Social Dev,6,"Governance, Law and Management"
+172,Nl.Dev&Proj.Plg.,1,"Governance, Law and Management"
+173,Agri Credit&coop Banking,1,"Governance, Law and Management"
+174,Business Mgt,26,"Governance, Law and Management"
+175,Linguistics,3,Languages and Fine Arts
+176,Physics (hons),14,Natural Sciences
+177,Eco Planning,2,Social Science and Liberal Arts
+178,Telugu,5,Languages and Fine Arts
+179,Inorg.chemistry,1,Natural Sciences
+180,Genetics,16,Natural Sciences
+181,Entomology,5,Natural Sciences
+182,Agronomy,16,Natural Sciences
+183,Techno Eco Analysis,1,Social Science and Liberal Arts
+184,Others,1,Others
+185,Marine Biology,4,Natural Sciences
+186,Computer System,7,"Engineering, Technology and Mathematics"
+187,Microlevel Planning,1,"Governance, Law and Management"
+188,Administrative Science,4,"Governance, Law and Management"
+189,Western History,2,Social Science and Liberal Arts
+190,Trng & Developmemt,1,"Governance, Law and Management"
+191,Soil Science,5,Natural Sciences
+192,Social Pol&planning -uk,13,"Governance, Law and Management"
+193,National Dev,3,"Governance, Law and Management"
+194,Globalization and Urban Dev,3,"Governance, Law and Management"
+195,Public Service,8,"Governance, Law and Management"
+196,Computer Tech,14,"Engineering, Technology and Mathematics"
+197,Managerial Eco,2,Social Science and Liberal Arts
+198,Health Management,11,"Governance, Law and Management"
+199,Rural Social Dev,2,"Governance, Law and Management"
+200,Policy & Admn,1,"Governance, Law and Management"
+201,Admn.Sc.&Dev Problem,3,"Governance, Law and Management"
+202,Census,1,"Governance, Law and Management"
+203,Family Planning,1,"Governance, Law and Management"
+204,Indl.orgn.,1,"Governance, Law and Management"
+205,Taxation,9,"Governance, Law and Management"
+206,Operation Research,8,"Engineering, Technology and Mathematics"
+207,Environmental Science,19,Natural Sciences
+208,Port Plg & Managemt,1,"Governance, Law and Management"
+209,Indl. Finance,1,Finance
+210,Social Policy,3,"Governance, Law and Management"
+211,Business Finance,6,Finance
+212,National Security,2,"Governance, Law and Management"
+213,Defence & Strategic Studies,6,"Governance, Law and Management"
+214,Divinity,2,Others
+215,Urdu,4,Languages and Fine Arts
+216,Tibetan,2,Languages and Fine Arts
+217,Medicine,216,Medical
+218,Applied Maths,1,"Engineering, Technology and Mathematics"
+219,Aerospace Enginneering,9,"Engineering, Technology and Mathematics"
+220,Gandhian Studies,3,Social Science and Liberal Arts
+221,Business Law,5,"Governance, Law and Management"
+222,Federalism,1,Social Science and Liberal Arts
+223,Political Eco,6,Social Science and Liberal Arts
+224,Housing and Environment,2,Others
+225,Poverty Alleviation,2,"Governance, Law and Management"
+226,Indl Engg.,26,"Engineering, Technology and Mathematics"
+227,Humanities,9,Social Science and Liberal Arts
+228,Marathi,5,Languages and Fine Arts
+229,Project Planning,2,"Governance, Law and Management"
+230,Web Pages Designing,1,"Engineering, Technology and Mathematics"
+231,Dev Mgt,10,"Governance, Law and Management"
+232,Rural Sociology,1,Social Science and Liberal Arts
+233,Energy & Environmental Policy,4,"Governance, Law and Management"
+234,Labour Orgn.,1,Others
+235,Eng. Mech.,3,"Engineering, Technology and Mathematics"
+236,Air Pollution Modelling,1,"Engineering, Technology and Mathematics"
+237,Intrntl Finance,2,Finance
+238,Medieval Indian History,7,Social Science and Liberal Arts
+239,Sectt.Practices,1,"Governance, Law and Management"
+240,Applied Demography,2,Social Science and Liberal Arts
+241,Behav Science,5,Social Science and Liberal Arts
+242,Public Policy & Mgmt,15,"Governance, Law and Management"
+243,Public Mgmt,7,"Governance, Law and Management"
+244,Gujarati,3,Languages and Fine Arts
+245,Pharmacology,2,Others
+246,Sahitya Visharad,1,Languages and Fine Arts
+247,International Dev,11,"Governance, Law and Management"
+248,Small Scale Sector,1,"Governance, Law and Management"
+249,Energy Studies,8,"Engineering, Technology and Mathematics"
+250,Police Admn,1,"Governance, Law and Management"
+251,Archaeology,2,Social Science and Liberal Arts
+252,Environmental Laws,4,"Governance, Law and Management"
+253,Sanitary Engg.,1,"Engineering, Technology and Mathematics"
+254,Public Health,9,Medical
+255,Export Mgt,1,"Governance, Law and Management"
+256,Communication,7,"Governance, Law and Management"
+257,Nautical Science,3,Others
+258,Electronics Engg,20,"Engineering, Technology and Mathematics"
+259,Prodn.Engg.,18,"Engineering, Technology and Mathematics"
+260,Assamese,2,Languages and Fine Arts
+261,Eco Policy & Mgt,1,"Governance, Law and Management"
+262,Executive Devlopment,2,"Governance, Law and Management"
+263,Social Studies,2,Social Science and Liberal Arts
+264,Project Mgt,3,"Governance, Law and Management"
+265,Computer Sc,128,"Engineering, Technology and Mathematics"
+266,Urban Studies,3,"Governance, Law and Management"
+267,Fishery Science,3,Others
+268,Poltics,17,Social Science and Liberal Arts
+269,Politics (Int. Studies),2,Social Science and Liberal Arts
+270,Computer Application,10,"Engineering, Technology and Mathematics"
+271,Naval Architre,2,"Engineering, Technology and Mathematics"
+272,Macro Eco Policy & Plg,4,Social Science and Liberal Arts
+273,Costing,2,Finance
+274,Radio Physics,1,Natural Sciences
+275,Town Planning,1,"Governance, Law and Management"
+276,Applied Geology,8,"Engineering, Technology and Mathematics"
+277,Plant Pathology,10,Natural Sciences
+278,Accountancy.Chd,3,Finance
+279,Structural Engg,9,"Engineering, Technology and Mathematics"
+280,Security Relatn,2,"Governance, Law and Management"
+281,Intnl Politics,13,Social Science and Liberal Arts
+282,Plant Breeding,3,Others
+283,Agri Chemistry,1,Natural Sciences
+284,Transportation,3,Others
+285,Hydraulics,2,Natural Sciences
+286,Pure Maths,2,"Engineering, Technology and Mathematics"
+287,Agri.Engg.,6,"Engineering, Technology and Mathematics"
+288,Physical Engg,2,"Engineering, Technology and Mathematics"
+289,Management&system,4,"Governance, Law and Management"
+290,Mass Commn,7,"Governance, Law and Management"
+291,Radio Engg.,1,"Engineering, Technology and Mathematics"
+292,Materials Mgmt,2,"Governance, Law and Management"
+293,Forensic Sc.,2,Others
+294,Tamil,3,Languages and Fine Arts
+295,Public Eco.,2,Social Science and Liberal Arts
+296,Development Mgmt,2,"Governance, Law and Management"
+297,Iformation&tech,13,"Engineering, Technology and Mathematics"
+298,Public Sc.& Managt,2,"Governance, Law and Management"
+299,Political Studies,3,Social Science and Liberal Arts
+300,Electronics and Communication,47,"Engineering, Technology and Mathematics"
+301,Bio-Technology,29,"Engineering, Technology and Mathematics"
+302,Applied Optics,1,"Engineering, Technology and Mathematics"
+303,Governance & Dev.,9,"Governance, Law and Management"
+304,Anaesthology,1,Medical
+305,Surgery,17,Medical
+306,Chinese Studies,1,Languages and Fine Arts
+307,Disaster Management,1,"Governance, Law and Management"
+308,Intrnl Dev,1,Social Science and Liberal Arts
+309,Public Mgmt & Policy,14,"Governance, Law and Management"
+310,Marine.engg.,2,"Engineering, Technology and Mathematics"
+311,Foundation Engg,3,"Engineering, Technology and Mathematics"
+312,Building Sc,5,"Engineering, Technology and Mathematics"
+313,Political Systems,1,"Governance, Law and Management"
+314,Physilogy(orgl Behaviour),1,Others
+315,Marketing Management,5,"Governance, Law and Management"
+316,Patents Law,1,"Governance, Law and Management"
+317,Computers,13,"Engineering, Technology and Mathematics"
+318,Financial Management,12,"Governance, Law and Management"
+319,Urban Dev,4,"Governance, Law and Management"
+320,Accoustics,2,Others
+321,Microbiology,12,Natural Sciences
+322,International Political Economy,3,Social Science and Liberal Arts
+323,Utility Regulation,1,"Governance, Law and Management"
+324,Navigation,3,Others
+325,Construction Mgt,2,"Governance, Law and Management"
+326,Intnl Policy&studies,3,"Governance, Law and Management"
+327,Population&devlp,3,"Governance, Law and Management"
+328,Aplied Geologcl,1,"Engineering, Technology and Mathematics"
+329,Commn.Engg,10,"Engineering, Technology and Mathematics"
+330,Power Electronics,2,"Engineering, Technology and Mathematics"
+331,Prodn.Control,1,"Engineering, Technology and Mathematics"
+332,Intel.property Law,4,"Governance, Law and Management"
+333,Constitl. Law,3,"Governance, Law and Management"
+334,Non.Linear Mech,1,"Engineering, Technology and Mathematics"
+335,Empowerment,1,Others
+336,Chartered Fincl Analyst,1,Finance
+337,Fluid Mechanics,2,Natural Sciences
+338,Instrumentation,13,"Engineering, Technology and Mathematics"
+339,Rural Mgt,3,"Governance, Law and Management"
+340,Power Sys Engg,5,"Engineering, Technology and Mathematics"
+341,Business.Orgn,1,"Governance, Law and Management"
+342,Health Policy,2,"Governance, Law and Management"
+343,Quality Management,2,"Governance, Law and Management"
+344,Medical&dental,6,Medical
+345,Systems Science & Automation,1,"Engineering, Technology and Mathematics"
+346,Computer Networks,1,"Engineering, Technology and Mathematics"
+347,Mechanical,23,"Engineering, Technology and Mathematics"
+348,Pali,1,Languages and Fine Arts
+349,Law & Governance,3,"Governance, Law and Management"
+350,Procurement,2,Finance
+351,Economic Hons.,5,Social Science and Liberal Arts
+352,Business Econ,3,Social Science and Liberal Arts
+353,Architecture,8,"Engineering, Technology and Mathematics"
+354,Equity Capital Mkts,2,Finance
+355,Orthopaedics,3,Medical
+356,Policy Analysis,2,"Governance, Law and Management"
+357,Strategic Export Mkt,1,"Governance, Law and Management"
+358,Organisational Behaviour,1,"Governance, Law and Management"
+359,Managerial Economics,1,Social Science and Liberal Arts
+360,Intellectual Property Rights,4,"Governance, Law and Management"
+361,Optoelectronics,3,"Engineering, Technology and Mathematics"
+362,Thermal Sc.,2,Natural Sciences
+363,Electronics Engineering,3,"Engineering, Technology and Mathematics"
+364,Radar Engg,2,"Engineering, Technology and Mathematics"
+365,Constitutional and Administrative Laws,1,"Governance, Law and Management"
+366,Human Rights,3,"Governance, Law and Management"
+367,Public Management & Governance,8,"Governance, Law and Management"
+368,Prodn Mgnt,1,"Governance, Law and Management"
+369,Electronics & Telecom Engg,12,"Engineering, Technology and Mathematics"
+370,Chem.Physics,1,Natural Sciences
+371,Foreign Affairs,1,"Governance, Law and Management"
+372,Digital Commn Engg,2,"Engineering, Technology and Mathematics"
+373,Eneral Studies,1,Others
+374,Public Management,30,"Governance, Law and Management"
+375,Homeopathy,3,Others
+376,public affairs,2,"Governance, Law and Management"
+377,Sino-burmese Rl,1,Others
+378,Advertising,2,Others
+379,Pers0nnel Admn,1,"Governance, Law and Management"
+380,West European St,1,Social Science and Liberal Arts
+381,Parasitology,2,Others
+382,All Medical Subjects,10,Medical
+383,Petroleum Engg,7,"Engineering, Technology and Mathematics"
+384,Ichthyology,1,Natural Sciences
+385,Human Resource,8,"Governance, Law and Management"
+386,Integrated Electronics,1,"Engineering, Technology and Mathematics"
+387,Dairy Production,4,Others
+388,Dairy Science,3,Others
+389,Electrical Machines&desig,1,"Engineering, Technology and Mathematics"
+390,Integ Rural Engy Tech.,1,"Engineering, Technology and Mathematics"
+391,Fibre Sc.&tech.,1,"Engineering, Technology and Mathematics"
+392,Corporate Laws,2,"Governance, Law and Management"
+393,Silviculture,1,Others
+394,Social Security,1,Others
+395,Administrative Laws and Other Laws,4,"Governance, Law and Management"
+396,Wildlife Mgt,2,Others
+397,Preventive and Social Medicine,1,Medical
+398,Medical Sciences,11,Medical
+399,Obstetrics,1,Medical
+400,Animal Sciences,1,Medical
+401,Clinical Pathgy,1,Medical
+402,Civil Laws,3,"Governance, Law and Management"
+403,Gynaecology,1,Medical
+404,From Green REvolution to Liberalissation Grown of,1,Others
+405,Natural Resource,1,Others
+406,Administrative Mgmt,2,"Governance, Law and Management"
+407,Clic Psychology,1,Medical
+408,Civil & Criminal Law,7,"Governance, Law and Management"
+409,Livestock Production,2,Others
+410,Contract and Taxation Law,1,"Governance, Law and Management"
+411,Social Services,1,Social Science and Liberal Arts
+412,Plant Botany,3,Natural Sciences
+413,Cyber Law,2,"Governance, Law and Management"
+414,Paediatrics,2,Medical
+415,Nutrition,2,Others
+416,Accounting and Auditing,7,Finance
+417,Nursing,4,Medical
+418,Medicine Surgery,16,Medical
+419,Dentistry,11,Medical
+420,Media Regulation,1,"Governance, Law and Management"
+421,Plasti Techlogy,1,"Engineering, Technology and Mathematics"
+422,South Asian Security Issues,1,Others
+423,Community Planning,1,"Governance, Law and Management"
+424,Advance Accountancy,3,Finance
+425,Principle of Laws,2,"Governance, Law and Management"
+426,Mathematical Sciences,1,"Engineering, Technology and Mathematics"
+427,INTNL RELATIONS,1,Social Science and Liberal Arts
+428,Banking Law,1,"Governance, Law and Management"
+429,Criminal Laws,3,"Governance, Law and Management"
+430,Hindi English Math NaturalScience SSc Sanskrit Eco,1,Others
+431,Hindi English Math Physics Chemistry,1,Others
+432,Design of Mech Equipments,1,"Engineering, Technology and Mathematics"
+433,Information Technology,8,"Engineering, Technology and Mathematics"
+434,Micro ¯o Eco,3,Social Science and Liberal Arts
+435,Material Sc,2,"Engineering, Technology and Mathematics"
+436,Design Engineering,1,"Engineering, Technology and Mathematics"
+437,Agri. Entomology,3,Natural Sciences
+438,Ceramic Tech,1,"Engineering, Technology and Mathematics"
+439,Administrative Law,4,"Governance, Law and Management"
+440,Opthalmology,2,Medical
+441,Cost and Work Mgmt.,1,"Governance, Law and Management"
+442,Legal History,1,Social Science and Liberal Arts
+443,Taxation Laws,1,"Governance, Law and Management"
+444,Christian Ministry,1,Others
+445,Anatomy,3,Natural Sciences
+446,Radio Pathology,1,Medical
+447,Animal Breeding,1,Medical
+448,Hotal Management,2,"Governance, Law and Management"
+449,Applied Physics,2,Natural Sciences
+450,Internal Medicine,2,Medical
+451,Analytical Chem,1,Natural Sciences
+452,Paper Technolog,3,"Engineering, Technology and Mathematics"
+453,Eco.History,1,Social Science and Liberal Arts
+454,Hindi English,1,Languages and Fine Arts
+455,Portuguese,1,Languages and Fine Arts
+456,Venereology,1,Medical
+457,Plant Physioloy,2,Natural Sciences
+458,Microelectronics and VLSI,3,"Engineering, Technology and Mathematics"
+459,Aeronautical Engineering,1,"Engineering, Technology and Mathematics"
+460,Corporate Mgmt,1,"Governance, Law and Management"
+461,Legislative Drafting,1,"Governance, Law and Management"
+462,West Asian Studies,2,Social Science and Liberal Arts
+463,Economic Hons. with Psychology,1,Social Science and Liberal Arts
+464,Physiotherapy,1,Others
+465,Textile Technology,3,"Engineering, Technology and Mathematics"
+466,Environmental Engineering,1,"Engineering, Technology and Mathematics"
+467,Anatomy Physiology Biochemistry,2,Natural Sciences
+468,Direct Tax Laws,1,"Governance, Law and Management"
+469,International Business,1,"Governance, Law and Management"
+470,Management Accounting,1,"Governance, Law and Management"
+471,Mineral Exploration,2,Others
+472,Indian Industry,1,Others
+473,Information Sc,2,"Engineering, Technology and Mathematics"
+474,Financial Markets,1,Finance
+475,Auto.Engg.,1,"Engineering, Technology and Mathematics"
+476,Mechanical engineering,5,"Engineering, Technology and Mathematics"
+477,Obstetrics and Gynaecology,3,Medical
+478,Women Studies,1,Social Science and Liberal Arts
