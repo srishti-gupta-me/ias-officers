@@ -26,10 +26,10 @@ logo_col1.header('IAS Subject and Experience Analysis Tool')
 logo_col2.image(image)
 
 
-body1="This application aims to provide an interactive tool to visualise variables <u>Subject</u> and <u>Department</u> from the TCPD-IAS Dataset. A good starting point to understand how it is build would be to refer to the linked **TCPD column here--provide the link**. This application utilizes [Streamlit.io](https://streamlit.io/) and [Plotly](https://plotly.com/). Streamlit.io provides a powerful Streamlit library, which has functions that can make visualisations and add features quickly with minimal code. Moreover, Streamlit.io provides a cloud solution to host the visualisations dashboard online and sharing easy. In this application Streamlit library functions and Plotly functions are used to render charts and tables. The dashboard is then hosted using Streamlit cloud utility with data source at Github."
+body1="This application aims to provide an interactive tool to visualise variables <u>Subject</u> and <u>Department</u> from the TCPD-IAS Dataset. A good starting point to understand how it is built would be to refer to the linked **TCPD column here--provide the link**. This application utilizes [Streamlit.io](https://streamlit.io/) and [Plotly](https://plotly.com/). Streamlit.io provides a powerful Streamlit library, which has functions that can make visualisations and add features quickly with minimal code. Moreover, Streamlit.io provides a cloud solution to host the visualisations dashboard online and sharing easy. In this application Streamlit library functions and Plotly functions are used to render charts and tables. The dashboard is then hosted using Streamlit cloud utility with data source on Github."
 st.markdown(body1, unsafe_allow_html=True)
 
-body2="Expandable sections contains code blocks for replicating the application(like the one just below). Hence it can be ignored if not interested in code development."
+body2="Expandable sections contain code blocks for replicating the application (like the one right below). Hence, it can be ignored if one is not interested in code development."
 st.markdown(body2, unsafe_allow_html=False)
 
 
@@ -297,7 +297,7 @@ unigram_data = load_unigram_data()
 
 with st.expander("Getting Started and Dependencies"):
 
-    st.markdown("Firslty, Streamlit library will have to be installed, steps to install are available [here](https://docs.streamlit.io/library/get-started/installation). This step is required even if you want to build the application locally/server on your machine")
+    st.markdown("Firstly, Streamlit library will have to be installed, steps to install are available [here](https://docs.streamlit.io/library/get-started/installation). This step is required even if you want to build the application locally/on the server on your machine")
     st.write("\n")
     st.markdown("To host the application online from Github (database at Github) an application dependencies file such as Pipfile, environment.yml, requirements.txt or pyproject.toml will be required by Streamlit Cloud to download the right packages during hosting application online. More about it [here](https://docs.streamlit.io/streamlit-cloud/get-started/deploy-an-app/app-dependencies), also refer Pipfile at the **Github repo** ")
     body='''import streamlit as st
@@ -322,7 +322,7 @@ st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="
 
 st.subheader('Unigram maps')
 
-body_unigram_maps='This table demonstrates the count value for each pair of Subject and Experience and acts as source.'
+body_unigram_maps='This table demonstrates the count value for each pair of Subject and Experience and acts as the source.'
 st.markdown(body_unigram_maps, unsafe_allow_html=True)
 
 st.write(unigram_data.drop(columns=["text", "colors","p_Subject", "p_Subject_text", "p_Experience", "p_Experience_text"]))
@@ -358,7 +358,7 @@ def load_unigram_data():
     df["colors"] = df["Subject"].map(color_map)
     return df
     
-#the library function that renders the dataframe, text and colors are temporary variable added to dataframe for providing color gradient to the bubbles in the bubble chart
+#the library function that renders the dataframe, text and colors is a temporary variable added to dataframe for providing color gradient to the bubbles in the bubble chart
 st.write(unigram_data.drop(columns=["text", "colors"]))
     '''
     st.code(body, language = 'python')
@@ -378,8 +378,8 @@ number_of_rows_experience = 8 #st.sidebar.slider('Number of rows', min_value=1, 
 st.sidebar.markdown("""<hr/>""", unsafe_allow_html=True)
 
 #Add sub heading on the main page
-st.subheader('Subject occurances for the Category of Experience')
-st.markdown("Choose the appropiate filter on the sidebar at left under the **Select a Category of Experience**",unsafe_allow_html=True)
+st.subheader('Subject occurrences for the Category of Experience')
+st.markdown("Choose the appropriate filter on the sidebar on the left under the **Select a Category of Experience**",unsafe_allow_html=True)
 st.write("\n")
 
 #Filtering dataframe based on the filters selected on the sidebar
@@ -389,7 +389,7 @@ st.write(filtered_df_experience)
 
 with st.expander("Sidebar filter and Dataframe Filtering for 'Category of Experience'"):
 
-    st.markdown("Below code explains how the filters on the sidebar are placed. Values selected in the filter are then used to subset the dataframe in the table above", unsafe_allow_html=True)
+    st.markdown("The code below explains how the filters on the sidebar are placed. Values selected in the filter are then used to subset the dataframe in the table above", unsafe_allow_html=True)
     experience_filter='''
 #Add sub heading on the sidebar, refering the 1st heading
 st.sidebar.subheader('Select a category of experience')
@@ -405,7 +405,7 @@ st.write(filtered_df_experience)
     '''
     st.code(experience_filter, language = 'python')
     
-    st.markdown("Below code explains filter_by_value function, which is used to subset the main unigram data. Functions should come before the call to the function, however for understanding purpose it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
+    st.markdown("Below code explains filter_by_value function, which is used to subset the main unigram data. Functions should come before the call to the function, however for understanding purpose it is placed below. Refer to the **github script** for more.", unsafe_allow_html=True)
     
     filter_function='''
 #Below categories in the Department of Experience have most entries, will be utilised to remove these from graphs and zoom in other Department of Experience	
@@ -455,7 +455,7 @@ def filter_by_value(df, col, value, include_admin=True, number_of_rows=5, percen
 plot_container_experience = st.container()
 
 col1, col2 = plot_container_experience.columns([7, 1])
-col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
+col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurrences with respect to chosen Category of Experience", x_axis_title="Subjects"))
 col2.plotly_chart(pie_chart(filtered_df_experience))
 
 with st.expander("Placing charts side-by-side"):
@@ -485,7 +485,7 @@ col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occ
     '''
     st.code(experience_bar_code, language = 'python')
     
-    st.markdown("Below code explains the bar_chart(). Function definition should come before call to the function, however only for understanding purpose it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
+    st.markdown("Below code explains the bar_chart(). Function definition should come before call to the function, however for ease of understanding it is placed below. Refer the **github script** for more.", unsafe_allow_html=True)
     
     bar_chart_code='''
 def bar_chart(df, title="", x_axis_title=""):
@@ -536,8 +536,8 @@ include_other_subject = st.sidebar.checkbox("Include combined remaining entries"
 number_of_rows = st.sidebar.slider('Number of rows', min_value=1, max_value=47, value=5)
 
 
-st.subheader('Category of Experience occurances with respect to Subject')
-st.markdown("Choose the appropiate filter on the sidebar at left under the **Select a Subject**",unsafe_allow_html=True)
+st.subheader('Category of Experience occurrences with respect to Subject')
+st.markdown("Choose the appropriate filter on the sidebar at left under the **Select a Subject**",unsafe_allow_html=True)
 st.write("\n")
 filtered_df_subject = filter_by_value(unigram_data.copy(), 'Subject', option_subject, include_admin=include_admin, number_of_rows=number_of_rows, include_other=include_other_subject)
 st.write(filtered_df_subject)
@@ -617,7 +617,7 @@ st.markdown("""<hr/>""", unsafe_allow_html=True)
 
 st.sidebar.subheader('Bubble map')
 st.subheader('Bubble map')
-st.markdown("Choose the appropiate filter on the sidebar under the heading **Bubble map**", unsafe_allow_html=True)
+st.markdown("Choose the appropriate filter on the sidebar under the heading **Bubble map**", unsafe_allow_html=True)
 
 #Filter option for Bubble map
 filter_subject_list = st.sidebar.multiselect('Subjects', unigram_data['Subject'].unique())
