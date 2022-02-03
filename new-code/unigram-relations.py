@@ -112,7 +112,8 @@ count_df["Experience"] = experience
 # In[63]:
 
 
-count_df.to_clipboard(index=False)
+count_df.columns = ["Count", "Subject", "Experience"]
+count_df = count_df[["Subject", "Experience", "Count"]]
 count_df.to_csv("./new-datasets/unigram_relations.csv", index = False)
 
 # In[ ]:
