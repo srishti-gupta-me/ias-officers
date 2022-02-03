@@ -19,7 +19,7 @@ st.set_page_config(page_title="IAS Dataset Analysis", page_icon="📚", layout="
 
 # change this in the final build
 
-image=Image.open("C:/Users/Soumil/Documents/GitHub/ias-officers(1)/new-code/logo.png")
+image=Image.open("./logo.png")
 logo=st.container()
 logo_col1, logo_col2=logo.columns([7,1])
 logo_col1.header('IAS Subject and Experience Analysis Tool')
@@ -49,7 +49,7 @@ def color_map(item):
 #Function to load the unigram mapping data from csv and filter
 def load_unigram_data():
     #df = pd.read_csv('~/Downloads/ias-officers/analysis/processed/unigram maps.csv')
-    df = pd.read_csv('C:/Users/Soumil/Documents/GitHub/ias-officers(1)/analysis/processed/unigram_relations.csv')
+    df = pd.read_csv('./processed/unigram_relations.csv')
     #Dropping rows where the experience is NA
     df = df.loc[df["Experience"] != "N.A."]
     
