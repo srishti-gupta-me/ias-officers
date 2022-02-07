@@ -464,7 +464,7 @@ with st.expander("Placing charts side-by-side"):
 plot_container_experience = st.container()
 
 #In the container the area is divided into two columns, the ratio for which is 7:1
-col1, col2 = plot_container_experience.columns([7, 1])
+col1, col2 = plot_container_experience.columns([10, 9])
 
 #Bar Plot in Column 1
 col1.plotly_chart(bar_chart(filtered_df_experience, title="Number of Subject occurances with respect to chosen Category of Experience", x_axis_title="Subjects"))
